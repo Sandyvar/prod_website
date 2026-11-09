@@ -1,0 +1,540 @@
+/* =========================================================
+   Logo animations (used on the welcome screen and in the header)
+   ========================================================= */
+.logo-svg {
+  display: block;
+  flex-shrink: 0;
+  overflow: visible;
+}
+.logo-orbit {
+  transform-box: view-box;
+  transform-origin: 32px 32px;
+  animation: logo-orbit 7s linear infinite;
+}
+.logo-intro .logo-check {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: logo-draw 700ms cubic-bezier(0.65, 0, 0.35, 1) 350ms forwards;
+}
+.logo-intro .logo-pulse {
+  transform-box: view-box;
+  transform-origin: 32px 32px;
+  opacity: 0;
+  animation: logo-pulse 1400ms cubic-bezier(0.2, 0.8, 0.2, 1) 900ms;
+}
+@keyframes logo-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes logo-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes logo-pulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.1);
+  }
+}
+
+/* =========================================================
+   Welcome screen — always dark, independent of the app theme
+   ========================================================= */
+.welcome {
+  --w-bg: #131211;
+  --w-card: #201f1d;
+  --w-input: #2a2826;
+  --w-border: #3a3936;
+  --w-text: #f5f4ef;
+  --w-text-2: #c9c6be;
+  --w-muted: #a8a59d;
+  --w-accent: #d97757;
+  --w-accent-btn: #e08a6c;
+  --w-on-accent: #1a1310;
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: radial-gradient(1200px 600px at 50% -10%, rgba(217, 119, 87, 0.1), transparent 60%), var(--w-bg);
+  color: var(--w-text);
+  color-scheme: dark;
+  font-family: var(--font);
+}
+.welcome-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(420px, 100%);
+  margin: 0 auto;
+  padding: max(48px, 8vh) 16px 48px;
+}
+.wl-back-app {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+  padding: 6px 10px;
+  border: 1px solid var(--w-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--w-text-2);
+  font-size: 13px;
+  font-weight: 550;
+}
+.wl-back-app:hover {
+  color: var(--w-text);
+  border-color: var(--w-muted);
+}
+
+/* Background: twinkling dots + floating outline circles */
+.wl-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.wl-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.15;
+  animation: wl-twinkle ease-in-out infinite;
+}
+.wl-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(217, 119, 87, 0.16);
+  animation: wl-float ease-in-out infinite alternate;
+}
+.wl-ring:nth-child(even) {
+  border-color: rgba(255, 255, 255, 0.07);
+}
+@keyframes wl-twinkle {
+  0%,
+  100% {
+    opacity: 0.08;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.15);
+  }
+}
+@keyframes wl-float {
+  from {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  to {
+    transform: translate(24px, -36px) rotate(8deg);
+  }
+}
+
+/* Brand */
+.wl-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 28px;
+  animation: wl-fade 600ms ease-out both;
+}
+.wl-brand .logo-svg {
+  margin-bottom: 18px;
+  filter: drop-shadow(0 12px 28px rgba(217, 119, 87, 0.35));
+}
+.wl-brand h1 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--w-text);
+}
+.wl-brand p {
+  margin-top: 6px;
+  color: var(--w-muted);
+  font-size: 15px;
+}
+
+/* Card */
+.wl-card {
+  width: 100%;
+  padding: 22px;
+  border-radius: 20px;
+  background: var(--w-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  animation:
+    wl-rise 650ms cubic-bezier(0.2, 0.8, 0.2, 1) 150ms both,
+    wl-glow 5s ease-in-out 800ms infinite alternate;
+}
+@keyframes wl-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.98);
+  }
+}
+@keyframes wl-glow {
+  from {
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.45),
+      0 0 0 1px rgba(217, 119, 87, 0.08),
+      0 0 32px rgba(217, 119, 87, 0.08);
+  }
+  to {
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.45),
+      0 0 0 1px rgba(217, 119, 87, 0.28),
+      0 0 64px rgba(217, 119, 87, 0.22);
+  }
+}
+@keyframes wl-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.wl-info {
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(217, 119, 87, 0.12);
+  color: #f3c3b0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* Segmented Sign in | Sign up with a sliding highlight */
+.wl-tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  background: #151413;
+  border: 1px solid var(--w-border);
+}
+.wl-tab-highlight {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 9px;
+  background: #34312e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.wl-tabs.right .wl-tab-highlight {
+  transform: translateX(100%);
+}
+.wl-tabs button {
+  position: relative;
+  z-index: 1;
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  color: var(--w-muted);
+  font-weight: 600;
+  transition: color 200ms ease;
+}
+.wl-tabs button[aria-selected='true'] {
+  color: var(--w-text);
+}
+
+/* Forms */
+.wl-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.wl-swap {
+  animation: wl-fade 300ms ease-out;
+}
+.wl-title {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--w-text);
+}
+.wl-sub {
+  margin-top: -6px;
+  color: var(--w-muted);
+  font-size: 13.5px;
+}
+.wl-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.wl-label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.wl-field label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--w-text-2);
+}
+.wl-input-wrap {
+  position: relative;
+}
+.wl-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--w-border);
+  border-radius: 12px;
+  background: var(--w-input);
+  color: var(--w-text);
+  font-size: 15px;
+  outline: none;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+.wl-input::placeholder {
+  color: #85827a;
+}
+.wl-input:focus {
+  border-color: var(--w-accent);
+  box-shadow: 0 0 0 3px rgba(217, 119, 87, 0.25);
+}
+.wl-input:-webkit-autofill {
+  -webkit-text-fill-color: var(--w-text);
+  -webkit-box-shadow: 0 0 0 40px var(--w-input) inset;
+}
+.wl-eye {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--w-muted);
+}
+.wl-eye:hover {
+  color: var(--w-text);
+}
+.wl-input-wrap:has(.wl-eye) .wl-input {
+  padding-right: 44px;
+}
+.wl-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #eda88e;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.wl-link:hover {
+  color: #f5c3b0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.wl-back {
+  align-self: center;
+  margin-top: 2px;
+  font-size: 13px;
+}
+.wl-strength {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7fd3a1;
+}
+.wl-strength.weak {
+  color: #f0a294;
+}
+.wl-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--w-accent-btn);
+  color: var(--w-on-accent);
+  font-size: 15px;
+  font-weight: 650;
+  box-shadow: 0 8px 22px rgba(217, 119, 87, 0.28);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    filter 150ms ease;
+}
+.wl-primary:hover:not(:disabled) {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(217, 119, 87, 0.36);
+}
+.wl-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+.wl-primary:disabled {
+  opacity: 0.75;
+  cursor: progress;
+}
+.wl-spin {
+  animation: spin 0.8s linear infinite;
+}
+.wl-or {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--w-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.wl-or::before,
+.wl-or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--w-border);
+}
+.wl-google {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 46px;
+  border: 1px solid #dadce0;
+  border-radius: 12px;
+  background: #fff;
+  color: #1f1f1f;
+  font-size: 15px;
+  font-weight: 600;
+  transition:
+    background 150ms ease,
+    transform 150ms ease;
+}
+.wl-google:hover {
+  background: #f3f3f3;
+}
+.wl-hint {
+  font-size: 12.5px;
+  color: var(--w-muted);
+  line-height: 1.5;
+}
+.wl-hint code,
+.wl-alert code {
+  font-size: 11.5px;
+  color: var(--w-text-2);
+}
+.wl-alert {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  background: rgba(240, 122, 108, 0.13);
+  color: #f6b0a6;
+  border: 1px solid rgba(240, 122, 108, 0.25);
+}
+.wl-alert svg {
+  vertical-align: -2px;
+}
+.wl-alert.success {
+  background: rgba(95, 191, 134, 0.12);
+  color: #a6e3bf;
+  border-color: rgba(95, 191, 134, 0.25);
+}
+.wl-tabs + .wl-alert {
+  margin-bottom: 14px;
+}
+
+/* Guest button (dashed, under the card) */
+.wl-guest {
+  width: 100%;
+  margin-top: 16px;
+  padding: 13px;
+  border: 1.5px dashed rgba(255, 255, 255, 0.22);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--w-text-2);
+  font-size: 14.5px;
+  font-weight: 600;
+  animation: wl-fade 600ms ease-out 400ms both;
+  transition:
+    border-color 150ms ease,
+    color 150ms ease,
+    background 150ms ease;
+}
+.wl-guest:hover {
+  border-color: rgba(217, 119, 87, 0.6);
+  color: var(--w-text);
+  background: rgba(217, 119, 87, 0.06);
+}
+.welcome :focus-visible {
+  outline: 2px solid #eda88e;
+  outline-offset: 2px;
+}
+
+/* Shown over the app when a guest opens sign in / sign up */
+.welcome-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  overflow-y: auto;
+  animation: wl-fade 220ms ease-out;
+}
+
+/* Header logo: no intro, just the orbit */
+.logo-header {
+  border-radius: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wl-star,
+  .wl-ring,
+  .wl-card,
+  .wl-brand,
+  .wl-guest,
+  .wl-swap,
+  .logo-orbit,
+  .logo-intro .logo-pulse {
+    animation: none !important;
+  }
+  .logo-intro .logo-check {
+    animation: none !important;
+    stroke-dashoffset: 0;
+  }
+  .wl-card {
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.45),
+      0 0 0 1px rgba(217, 119, 87, 0.2);
+  }
+  .wl-tab-highlight {
+    transition: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-inner {
+    padding-top: 36px;
+  }
+  .wl-card {
+    padding: 18px;
+  }
+  .wl-brand h1 {
+    font-size: 26px;
+  }
+}
